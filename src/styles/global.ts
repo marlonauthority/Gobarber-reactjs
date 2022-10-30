@@ -15,13 +15,13 @@ export default createGlobalStyle`
     background: #312E38;
     color: #fff;
     font-family: "Source Sans Pro", sans-serif;
-    font-size: 1.6em;
+    font-size: 1.6rem;
     -webkit-font-smoothing: antialiased; /** qualidade retina */
     scroll-behavior: smooth; /** scroll suave */
   }
   input, button {
     font-family: 'Roboto Slab', serif;
-    font-size: 1.6em;
+    font-size: 1.6rem;
   }
   h1, h2, h3, h4, h5, h6, strong {
     font-weight: 500;
