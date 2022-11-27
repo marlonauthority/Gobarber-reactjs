@@ -15,9 +15,9 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest}) => {
   const [isFilled, setIsFilled] = useState(false)
 
   const { fieldName, defaultValue, error, registerField } = useField(name)
-  
+ 
   const handleInputFocus = useCallback(() => {
-    () => setIsFocused(true)
+    setIsFocused(true)
   }, [])
 
   const handleInputBlur = useCallback(() => {
@@ -43,6 +43,7 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest}) => {
         ref={inputRef}
         {...rest}
       />
+       {error}
     </Container>
   )
 }

@@ -1,10 +1,12 @@
 import React from 'react';
+
 import logoImg from '../../assets/logo.svg';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
-import { Container, Content, Background } from './styles';
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
+
+import { Container, Content, Background } from './styles';
 
 const SigIn: React.FC = () => (
   <Container>
