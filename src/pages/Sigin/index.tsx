@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useContext,useDebugValue } from 'react';
+import React, { useRef, useCallback, useContext } from 'react';
 
 import logoImg from '../../assets/logo.svg';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
@@ -22,9 +22,9 @@ interface SignUpFormData {
 const SigIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const { login } = useContext(AuthContext)
-  console.log(login)
-  
+  const { user, login } = useContext(AuthContext)
+  console.log(user)
+
   const handleSubmit = useCallback(async (data: SignUpFormData) => {
     try {
       formRef.current?.setErrors({});
