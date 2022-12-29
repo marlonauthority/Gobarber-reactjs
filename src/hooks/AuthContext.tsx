@@ -14,6 +14,7 @@ interface AuthContextInterface {
  user: object;
  children?: React.ReactNode;
  login(credentials: SignInCredentialsInterface): Promise<void>;
+ logout(): void;
 }
 
 const AuthContext = createContext<AuthContextInterface>({} as AuthContextInterface)
@@ -44,8 +45,16 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
 }, []);
 
 
+  const logout = useCallback(() => {
+    localStorage.removeItem('@gobarber:token')
+    localStorage.removeItem('@gobarber:user')
+    
+    setData({} as AuthState)
+}, []);
+
+
   return (
-    <AuthContext.Provider value={{ user: data.user, login }}>
+    <AuthContext.Provider value={{ user: data.user, login, logout }}>
       {children}
     </AuthContext.Provider>
   )
