@@ -8,12 +8,14 @@ import { Form } from '@unform/web'
 import * as  Yup from 'yup'
 
 import { useAuth } from '../../hooks/AuthContext';
+import { useToast } from '../../hooks/ToastContext';
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
 import { Container, Content, Background } from './styles';
 import getValidationErrors from '../../utils/getValidationErros';
+
 interface SignUpFormData {
   email: string;
   password: string;
@@ -23,6 +25,7 @@ const SigIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { login } = useAuth()
+  const { addToast } = useToast()
 
   const handleSubmit = useCallback(async (data: SignUpFormData) => {
     try {
@@ -39,7 +42,7 @@ const SigIn: React.FC = () => {
         abortEarly: false,
       });
 
-      login({
+      await login({
         email: data.email,
         password: data.password,
     });
@@ -49,9 +52,13 @@ const SigIn: React.FC = () => {
         formRef.current?.setErrors(errors);
       }
 
-      // disparar toasat
+      addToast({
+        type: 'error',
+        title: 'Erro na autenticação',
+        description: 'Ocorreu um erro ao fazer login, cheque suas credenciais'
+      })
     }
-  }, [login]);
+  }, [login, addToast]);
 
   return (
     <Container>

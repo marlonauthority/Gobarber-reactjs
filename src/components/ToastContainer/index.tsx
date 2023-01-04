@@ -1,58 +1,29 @@
 import React from 'react';
 import { FiAlertCircle, FiXCircle } from 'react-icons/fi'
 
+import { ToastMessagesState } from '../../hooks/ToastContext';
 import { Container, Toast } from './styles';
 
-const ToastContainer: React.FC = () => {
+interface ToastContainerProps {
+  messages: ToastMessagesState[]
+}
+const ToastContainer: React.FC<ToastContainerProps> = ({ messages }) => {
   return (
     <Container>
-      <Toast hasDescription>
-        <FiAlertCircle size={20} />
-
-        <div>
-          <strong>Aconteceu um erro</strong>
-          <p>Não foi possivel fazer login na aplicação</p>
-        </div>
-        <button type="button">
-          <FiXCircle size={18} />
-        </button>
+      {messages.map(message => (
+        <Toast key={message.id} hasDescription={!!message.description} type={message.type}>
+          <FiAlertCircle size={20} />
+          <div>
+            <strong>{message.title}</strong>
+            {message.description ? (<p>{message.description}</p>): null}
+          </div>
+          <button type="button">
+            <FiXCircle size={18} />
+          </button>
       </Toast>
+      ))}
 
-      <Toast type="success" hasDescription={false}>
-        <FiAlertCircle size={20} />
-
-        <div>
-          <strong>Aconteceu um erro</strong>
-         
-        </div>
-        <button type="button">
-          <FiXCircle size={18} />
-        </button>
-      </Toast>
-
-      <Toast type="success" hasDescription>
-        <FiAlertCircle size={20} />
-
-        <div>
-          <strong>Aconteceu um erro</strong>
-          <p>Não foi possivel fazer login na aplicação</p>
-        </div>
-        <button type="button">
-          <FiXCircle size={18} />
-        </button>
-      </Toast>
-
-      <Toast type="error" hasDescription>
-        <FiAlertCircle size={20} />
-
-        <div>
-          <strong>Aconteceu um erro</strong>
-          <p>Não foi possivel fazer login na aplicação</p>
-        </div>
-        <button type="button">
-          <FiXCircle size={18} />
-        </button>
-      </Toast>
+      
     </Container>
   );
 }
