@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 import ToastContainer from '../components/ToastContainer';
 interface ToastContextData {
   addToast(message: Omit<ToastMessagesState, 'id'>): void;
-  removeToast(): void;
+  removeToast(id: string): void;
 }
 
 export interface ToastMessagesState {
@@ -28,8 +28,8 @@ const ToastProvider: React.FC<PropsWithChildren> = ({ children }) => {
     setMessages((prevMessages) => [...prevMessages, newtoast])
   }, [])
 
-  const removeToast = useCallback(() => {
-    console.log('rm toast')
+  const removeToast = useCallback((id: string) => {
+    setMessages(prevMessages => prevMessages.filter(message => message.id !== id))
   }, [])
 
   return (
