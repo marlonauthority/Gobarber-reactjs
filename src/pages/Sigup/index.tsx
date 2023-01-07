@@ -1,7 +1,9 @@
 import React, { useCallback, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 import logoImg from '../../assets/logo.svg';
 import { FiArrowLeft, FiMail, FiLock, FiUser } from 'react-icons/fi'
+
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as  Yup from 'yup'
@@ -56,7 +58,7 @@ const SigUp: React.FC = () => {
 
       </Form>
       
-      <a href="#"><FiArrowLeft /> Voltar logon</a>
+      <Link to="/"><FiArrowLeft /> Voltar login</Link>
     </Content>
     
   </Container>

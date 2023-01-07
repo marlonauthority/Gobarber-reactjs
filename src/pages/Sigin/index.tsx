@@ -1,4 +1,5 @@
 import React, { useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
 import logoImg from '../../assets/logo.svg';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
@@ -13,7 +14,7 @@ import { useToast } from '../../hooks/ToastContext';
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 
-import { Container, Content, Background } from './styles';
+import { Container, Content, AnimationContainer, Background } from './styles';
 import getValidationErrors from '../../utils/getValidationErros';
 
 interface SignUpFormData {
@@ -50,6 +51,7 @@ const SigIn: React.FC = () => {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
         formRef.current?.setErrors(errors);
+        return
       }
 
       addToast({
@@ -63,17 +65,19 @@ const SigIn: React.FC = () => {
   return (
     <Container>
       <Content>
-        <img src={logoImg} />
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <h2>Faça seu logon</h2>
-          <Input name="email" icon={FiMail} type="text" placeholder='E-mail' />
-          <Input name="password" icon={FiLock} type="password" placeholder='Senha' />
-          <Button type="submit">Entrar</Button>
+        <AnimationContainer>
+          <img src={logoImg} />
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <h2>Faça seu logon</h2>
+            <Input name="email" icon={FiMail} type="text" placeholder='E-mail' />
+            <Input name="password" icon={FiLock} type="password" placeholder='Senha' />
+            <Button type="submit">Entrar</Button>
 
-          <a href="#">Esqueci minha senha</a>
-        </Form >
+            <Link to="/reset-password">Esqueci minha senha</Link>
+          </Form >
         
-        <a href="#"><FiLogIn/> Criar conta</a>
+          <Link to="/cadastrar"><FiLogIn/> Criar conta</Link>
+        </AnimationContainer>
       </Content>
       <Background />
     </Container>
