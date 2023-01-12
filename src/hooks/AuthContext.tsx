@@ -42,6 +42,9 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     localStorage.setItem('@gobarber:user', JSON.stringify(user))
     
     setData({ token, user })
+
+    return window.location.replace('/dashboard')
+    
 }, []);
 
 
