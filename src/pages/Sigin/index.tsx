@@ -1,5 +1,5 @@
 import React, { useRef, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import logoImg from '../../assets/logo.svg';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
@@ -16,7 +16,6 @@ import Button from '../../components/Button'
 
 import { Container, Content, AnimationContainer, Background } from './styles';
 import getValidationErrors from '../../utils/getValidationErros';
-
 interface SignUpFormData {
   email: string;
   password: string;
@@ -24,7 +23,7 @@ interface SignUpFormData {
 
 const SigIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-
+  const history = useNavigate()
   const { login } = useAuth()
   const { addToast } = useToast()
 
@@ -47,6 +46,7 @@ const SigIn: React.FC = () => {
         email: data.email,
         password: data.password,
     });
+    history('/dashboard')
     } catch (err:any) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
@@ -60,7 +60,7 @@ const SigIn: React.FC = () => {
         description: 'Ocorreu um erro ao fazer login, cheque suas credenciais'
       })
     }
-  }, [login, addToast]);
+  }, [login, addToast, history]);
 
   return (
     <Container>

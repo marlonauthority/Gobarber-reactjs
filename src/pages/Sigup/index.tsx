@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import logoImg from '../../assets/logo.svg';
 import { FiArrowLeft, FiMail, FiLock, FiUser } from 'react-icons/fi'
@@ -13,7 +13,8 @@ import Button from '../../components/Button'
 
 import { Container, Content, Background } from './styles'
 import getValidationErrors from '../../utils/getValidationErros';
-
+import api from '../../utils/apiClient';
+import { useToast } from '../../hooks/ToastContext';
 interface SignUpFormData {
   name: string;
   email: string;
@@ -21,6 +22,9 @@ interface SignUpFormData {
 }
 const SigUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const { addToast } = useToast()
+
+  const history = useNavigate()
 
   const handleSubmit = useCallback(async (data: SignUpFormData) => {
     try {
@@ -37,12 +41,27 @@ const SigUp: React.FC = () => {
       await schema.validate(data, {
         abortEarly: false,
       });
+      await api.post('/users', data)
+      addToast({
+        type: 'success',
+        title: 'Cadastro realizado',
+        description: 'Você já pode fazer login'
+      })
+      history('/')
     } catch (err:any) {
-      const errors = getValidationErrors(err);
+      if (err instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(err);
+        formRef.current?.setErrors(errors);
+        return
+      }
 
-      formRef.current?.setErrors(errors);
+      addToast({
+        type: 'error',
+        title: 'Erro na autenticação',
+        description: 'Ocorreu um erro ao fazer cadastro, cheque suas credenciais'
+      })
     }
-  }, []);
+  }, [addToast,history]);
 
   return (
     <Container>
