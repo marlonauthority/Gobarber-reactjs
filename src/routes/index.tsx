@@ -14,11 +14,11 @@ const RoutesApp: React.FC = () => (
     <Route
           path="/dashboard"
           element={
-            <Privateroute>
-              <Dashboard />
-            </Privateroute>
+            <Privateroute />
           }
-        />
+      >
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Route>
   </Switch>
 )
 
