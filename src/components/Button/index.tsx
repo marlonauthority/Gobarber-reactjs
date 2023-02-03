@@ -1,12 +1,14 @@
-import React, {ButtonHTMLAttributes} from 'react';
+import React, {ButtonHTMLAttributes, Children} from 'react';
 
 import { Container } from './styles';
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  loading?: boolean;
+}
 
 const Button: React.FC<ButtonProps> = (props) => ( 
      <Container type="button" {...props}>
-        {props.children}
+        {props.loading ? 'Carregando' : props.children}
       </Container>
 )
 
