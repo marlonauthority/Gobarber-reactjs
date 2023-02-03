@@ -1,16 +1,19 @@
 import React from 'react'
 import { Routes as Switch, Route  } from 'react-router-dom'
 import Dashboard from '../pages/Dashboard'
+import ForgotPassword from '../pages/ForgotPassword'
 
 import SigIn from '../pages/Sigin'
 import SigUp from '../pages/Sigup'
 import Privateroute from './Privateroute'
+
 
 const RoutesApp: React.FC = () => (
   <Switch>
     <Route element={<SigIn />} path="/"  />
     <Route element={<SigIn />} path="/login"  />
     <Route element={<SigUp />} path="/cadastrar" />
+    <Route element={<ForgotPassword />} path="/reset-password" />
     <Route
           path="/dashboard"
           element={
