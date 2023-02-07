@@ -7,8 +7,7 @@ import SigUp from '../pages/Sigup'
 import Dashboard from '../pages/Dashboard'
 import ForgotPassword from '../pages/ForgotPassword'
 import ResetPassword from '../pages/ResetPassword'
-
-
+import Profile from '../pages/Profile'
 
 const RoutesApp: React.FC = () => (
   <Switch>
@@ -24,6 +23,14 @@ const RoutesApp: React.FC = () => (
           }
       >
         <Route path="/dashboard" element={<Dashboard />} />
+      </Route>
+    <Route
+          path="/profile"
+          element={
+            <Privateroute />
+          }
+      >
+        <Route path="/profile" element={<Profile />} />
       </Route>
   </Switch>
 )

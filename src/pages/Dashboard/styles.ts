@@ -42,12 +42,16 @@ export const Profile = styled.div`
   height: 56px;
   border-radius: 50%;
  }
- div {
+
+ a {
   display: flex;
   flex-direction: column;
   margin-left: 16px;
   line-height: 24px;
-
+  text-decoration: none;
+  &:hover {
+        opacity: 0.8;
+      }
   span {
     color: #f4ede8;
   }

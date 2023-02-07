@@ -5,6 +5,7 @@ interface User {
   id: string;
   avatar_url: string;
   name: string;
+  email: string;
 }
 interface AuthState {
   token: string;
@@ -20,6 +21,7 @@ interface AuthContextInterface {
  children?: React.ReactNode;
  login(credentials: SignInCredentialsInterface): Promise<void>;
  logout(): void;
+ updateUser(user: User): void;
 }
 
 const AuthContext = createContext<AuthContextInterface>({} as AuthContextInterface)
@@ -60,9 +62,20 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     setData({} as AuthState)
 }, []);
 
+  const updateUser = useCallback(
+    (user: User) => {
+      localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+      setData({
+        token: data.token,
+        user,
+      });
+    },
+    [setData, data.token],
+  );
+
 
   return (
-    <AuthContext.Provider value={{ user: data.user, login, logout }}>
+    <AuthContext.Provider value={{ user: data.user, login, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   )
