@@ -5,8 +5,3 @@ Nesta versão 3 utiliza-se de conceitos de React JS com a adição do Typescript
 
 - A Versão 2 pode ser encontrada na TAG ```v2``` desde repositório, ou clique [aqui](https://github.com/marlondenisck/reactjs-agendamento-servicos/tree/v2) para um atalho.
 
-
-## Coverage Report
-```
-yarn test --coverage --watchAll false 
-```
