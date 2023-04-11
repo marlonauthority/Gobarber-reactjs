@@ -31,16 +31,16 @@ jest.mock('../../hooks/ToastContext', () => {
 
 
 describe('Pagina de Login', () => {
+  beforeEach(() => {
+    mockedHistoryPush.mockClear();
+  });
+
   it('Deve poder vizualizar página de login', () => {
     const { debug } = render(<SignIn />)
     debug()
   })
 
-  beforeEach(() => {
-    mockedHistoryPush.mockClear();
-  });
-
-  it('should be able to sign in', async () => {
+  it('permitir login', async () => {
     const { getByPlaceholderText, getByText } = render(<SignIn />);
 
     const emailField = getByPlaceholderText('E-mail');
@@ -56,9 +56,45 @@ describe('Pagina de Login', () => {
       expect(mockedHistoryPush).toHaveBeenCalledWith('/dashboard');
     });
   });   
-})
 
-  describe('SignIn Page', () => {
-     
-})
+  it('não permitir login com credenciais invalidas', async () => {
+    const { getByPlaceholderText, getByText } = render(<SignIn />);
 
+    const emailField = getByPlaceholderText('E-mail');
+    const passwordField = getByPlaceholderText('Senha');
+    const buttonElement = getByText('Entrar');
+
+    fireEvent.change(emailField, { target: { value: 'not-valid-email' } });
+    fireEvent.change(passwordField, { target: { value: '123456' } });
+
+    fireEvent.click(buttonElement);
+
+    await waitFor(() => {
+      expect(mockedHistoryPush).not.toHaveBeenCalled();
+    });
+  });
+
+  it('disparar um erro ao falhar login ', async () => {
+    mockedSignIn.mockImplementation(() => {
+      throw new Error();
+    });
+
+    const { getByPlaceholderText, getByText } = render(<SignIn />);
+
+    const emailField = getByPlaceholderText('E-mail');
+    const passwordField = getByPlaceholderText('Senha');
+    const buttonElement = getByText('Entrar');
+
+    fireEvent.change(emailField, { target: { value: 'johndoe@example.com' } });
+    fireEvent.change(passwordField, { target: { value: '123456' } });
+
+    fireEvent.click(buttonElement);
+
+    await waitFor(() => {
+      expect(mockedAddToast).toHaveBeenCalledWith(
+        expect.objectContaining({ type: 'error' }),
+      );
+    });
+  });
+
+})
