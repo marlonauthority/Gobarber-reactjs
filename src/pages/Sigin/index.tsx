@@ -47,6 +47,7 @@ const SigIn: React.FC = () => {
         password: data.password,
     });
     history('/dashboard')
+    console.log('aaa')
     } catch (err:any) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
