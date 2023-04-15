@@ -64,7 +64,7 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   const updateUser = useCallback(
     (user: User) => {
-      localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+      localStorage.setItem('@gobarber:user', JSON.stringify(user));
       setData({
         token: data.token,
         user,
@@ -83,10 +83,6 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
 export function useAuth(): AuthContextInterface {
   const context = useContext(AuthContext)
-
-  if(!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
-  }
 
   return context
 }
